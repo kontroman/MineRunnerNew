@@ -8,6 +8,10 @@ public class PauseMenu : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    private void Start()
+    {
+        CD_BeforeResumeGame.Instance.SrartCountDownSooooka();
+    }
 
     void Update()
     {
@@ -27,7 +31,7 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
        pauseMenuUI.SetActive(false);
-       CD_BeforeResumeGame.Instance.CountDown();
+       CD_BeforeResumeGame.Instance.CountDown(5);
        GameIsPaused = false;
     }
 
