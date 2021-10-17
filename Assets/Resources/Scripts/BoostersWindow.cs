@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class BoostersWindow : MonoBehaviour
 {
-
     public static BoostersWindow Instance { get; private set; }
 
     [SerializeField] private Text pb1; //price booster
