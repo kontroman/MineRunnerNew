@@ -4,22 +4,23 @@ using System.Collections.Generic;
 
 public class Quest
 {
-    private int prevTarget;
-    private int currentTarget;
-    private int step;
+    public float Target = 1;
+    public int Lvl = 1;
+    public int Prize = 1;
 
-    public string questName;
+    public string QuestName;
 
-    public Quest()
+    public Quest(string _questName)
     {
-        prevTarget = PlayerPrefs.GetInt(questName, 0);
-        step = PlayerPrefs.GetInt(questName + step, 0);
-        currentTarget = prevTarget + step;
+        QuestName = _questName;
+        Target = PlayerPrefs.GetInt(QuestName + "Target", 10);
+        Lvl = PlayerPrefs.GetInt(QuestName + "Lvl", 1);
+        Prize = PlayerPrefs.GetInt(QuestName + "Prize", 10);
     }
 
-    public bool IsComplete(int amount)
+    public bool IsComplete(float amount)
     {
-        return amount >= currentTarget;
+        return amount >= this.Target * this.Lvl;
     }
 
 }
