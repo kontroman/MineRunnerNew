@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,6 +15,8 @@ public class QuestsController : MonoBehaviour
 {
     public static QuestsController Instance { get; private set; }
 
+    public Text QuestDiscriprtion;
+
     public Quest actualQuest;
     public string actaulQuestName;
     public float value;
@@ -26,10 +29,10 @@ public class QuestsController : MonoBehaviour
     public int score;
     public int record;
 
+
     void Update()
     {
         UpdateStats();
-
     }
 
     private void Awake()
@@ -38,9 +41,10 @@ public class QuestsController : MonoBehaviour
         else Instance = this;
 
         actualQuest = GetNewQuest();
+        ShowQuest(actualQuest);
         Debug.Log(actualQuest.QuestName);
-        Debug.Log(actualQuest.Target);
-        Debug.Log(actualQuest.Prize);
+        Debug.Log(actualQuest.Target * actualQuest.Lvl);
+        Debug.Log(actualQuest.Lvl);
     }
 
     public Quest GetNewQuest()
@@ -53,11 +57,12 @@ public class QuestsController : MonoBehaviour
         if (quest.IsComplete(value))
         {
             diamondScore += quest.Prize * quest.Lvl;
-            PlayerPrefs.SetInt(quest.QuestName, (quest.Lvl)++);
+            quest.Lvl++;
+            PlayerPrefs.SetInt(actualQuest.QuestName + "Lvl", quest.Lvl);
             Debug.Log("+");
         }
         else
-         Debug.Log('-');
+        Debug.Log('-');
     }
 
     public float DifineTarget(Quest quest)
@@ -88,6 +93,12 @@ public class QuestsController : MonoBehaviour
     public float UpdateStats()
     {
         return 0;
+    }
+
+    public void ShowQuest(Quest quest)
+    {
+        QuestDiscriprtion.text = quest.Text;
+        Destroy(QuestDiscriprtion, 10);
     }
 
     public void PlusPlusT()
